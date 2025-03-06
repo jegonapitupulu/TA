@@ -12,7 +12,8 @@ class JenisPimpananController extends Controller
      */
     public function index()
     {
-        //
+        $jenis_pimpanan = jenis_pimpanan::all();
+        return view('jenis_pimpanan.index', compact('jenis_pimpanan'));
     }
 
     /**
