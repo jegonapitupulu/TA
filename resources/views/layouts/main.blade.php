@@ -4,7 +4,7 @@
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE 4 | Simple Tables</title>
+    <title>koperasi s</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="AdminLTE 4 | Simple Tables" />
@@ -258,13 +258,13 @@
           <a href="../index.html" class="brand-link">
             <!--begin::Brand Image-->
             <img
-              src="{{url('assets/img/AdminLTELogo.png')}}"
+              src="{{url('assets/img/Logo_PT_Pupuk_Sriwidjaja_Palembang.png')}}"
               alt="AdminLTE Logo"
               class="brand-image opacity-75 shadow"
             />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">AdminLTE 4</span>
+            <span class="brand-text fw-light">KOPERASI</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
@@ -311,31 +311,31 @@
               </li>
               <li class="nav-item">
                 <a href="{{url('jenis_simpanan')}}" class="nav-link">
-                  <i class="nav-icon bi bi-palette"></i>
+                  <i class="nav-icon bi bi-card-checklist"></i>
                   <p>Jenis Simpanan</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{url('simpanan')}}" class="nav-link">
-                  <i class="nav-icon bi bi-palette"></i>
+                  <i class="nav-icon bi bi-box-arrow-down"></i>
                   <p>Simpanan</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{url('pinjaman')}}" class="nav-link">
-                  <i class="nav-icon bi bi-palette"></i>
+                  <i class="nav-icon bi bi-piggy-bank"></i>
                   <p>Pinjaman</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{url('angsuran')}}" class="nav-link">
-                  <i class="nav-icon bibi-coin"></i>
+                  <i class="nav-icon bi bi-coin"></i>
                   <p>Angsuran</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{url('anggota')}}" class="nav-link">
-                  <i class="nav-icon bi bi-palette"></i>
+                  <i class="nav-icon bi bi-person"></i>
                   <p>Anggota</p>
                 </a>
               </li>
