@@ -19,6 +19,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::resource('jenis_pimpanan', JenisPimpananController::class);
+Route::resource('jenis_simpanan', JenisPimpananController::class);
 
 require __DIR__.'/auth.php';
