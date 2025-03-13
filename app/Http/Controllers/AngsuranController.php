@@ -12,7 +12,8 @@ class AngsuranController extends Controller
      */
     public function index()
     {
-        //
+        $angsuran = Angsuran::all();
+        return view('angsuran.index', compact('angsuran'));
     }
 
     /**

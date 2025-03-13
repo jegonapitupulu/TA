@@ -12,7 +12,8 @@ class PinjamanController extends Controller
      */
     public function index()
     {
-        //
+        $pinjaman = Pinjaman::all();
+        return view('pinjaman.index', compact('pinjaman'));
     }
 
     /**

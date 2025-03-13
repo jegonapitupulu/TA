@@ -12,7 +12,8 @@ class SimpananController extends Controller
      */
     public function index()
     {
-        //
+        $simpanan = Simpanan::all();
+        return view('simpanan.index', compact('simpanan'));
     }
 
     /**

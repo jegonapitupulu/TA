@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\JenisPimpananController;
+use App\Http\Controllers\AngsuranController;
+use App\Http\Controllers\JenissimpananController;
+use App\Http\Controllers\PinjamanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SimpananController;
+use App\Http\Controllers\AnggotaController; // Add this line
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,7 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::resource('jenis_simpanan', JenisPimpananController::class);
+Route::resource('jenis_simpanan', JenisSimpananController::class);
+Route::resource('pinjaman', PinjamanController::class);
+Route::resource('angsuran', AngsuranController::class);
+Route::resource('simpanan', SimpananController::class);
+Route::resource('anggota', AnggotaController::class); // Add this line
 
 require __DIR__.'/auth.php';

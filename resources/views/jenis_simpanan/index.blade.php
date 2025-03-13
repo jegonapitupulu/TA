@@ -14,17 +14,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($jenis_pimpanan as $jp)
+                @foreach($jenis_simpanan as $jp)
                     <tr>
                         <td>{{ $jp->id }}</td>
                         <td>{{ $jp->nama_jenis_simpanan }}</td>
                         <td>{{ $jp->nominal }}</td>
                         <td>
-                            <a href="{{ route('jenis_simpanan.edit', $jp->id) }}" class="btn btn-warning">Kemaskini</a>
+                            <a href="{{ route('jenis_simpanan.edit', $jp->id) }}" class="btn btn-warning">edit</a>
                             <form action="{{ route('jenis_simpanan.destroy', $jp->id) }}" method="POST" style="display: inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Padam</button>
+                                <button type="submit" class="btn btn-danger">hapus</button>
                             </form>
                         </td>
                     </tr>

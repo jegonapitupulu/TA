@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\jenis_pimpanan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class JenisPimpananController extends Controller
+class anggotacontroller extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $jenis_pimpanan = jenis_pimpanan::all();
-        return view('jenis_pimpanan.index', compact('jenis_pimpanan'));
+        $anggota = User::where('role', 'anggota')->get();
+        return view('anggota.index', compact('anggota'));
     }
 
     /**
@@ -35,7 +35,7 @@ class JenisPimpananController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(jenis_pimpanan $jenis_pimpanan)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +43,7 @@ class JenisPimpananController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(jenis_pimpanan $jenis_pimpanan)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +51,7 @@ class JenisPimpananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, jenis_pimpanan $jenis_pimpanan)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +59,7 @@ class JenisPimpananController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(jenis_pimpanan $jenis_pimpanan)
+    public function destroy(string $id)
     {
         //
     }
