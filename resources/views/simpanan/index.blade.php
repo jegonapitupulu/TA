@@ -8,6 +8,7 @@
             <tr>
                 <th>User ID</th>
                 <th>Jenis Simpanan</th>
+                <th>Nominal</th>
                 <th>Tanggal Simpan</th>
                 <th>Admin ID</th>
                 <th>Actions</th>
@@ -16,10 +17,11 @@
         <tbody>
             @foreach($simpanan as $s)
             <tr>
-                <td>{{ $s->user_id }}</td>
-                <td>{{ $s->jenis_simpan_id }}</td>
+                <td>{{ $s->user->name }}</td>
+                <td>{{ $s->jenisSimpanan->nama_jenis_simpanan }}</td>
+                <td>{{ $s->jenisSimpanan->nominal }}</td>
                 <td>{{ $s->tanggal_simpan }}</td>
-                <td>{{ $s->admin_id }}</td>
+                <td>{{ $s->admin->name }}</td>
                 <td>
                     <a href="{{ route('simpanan.edit', $s->id) }}" class="btn btn-primary">Edit</a>
                     <form action="{{ route('simpanan.destroy', $s->id) }}" method="POST" style="display:inline-block;">
