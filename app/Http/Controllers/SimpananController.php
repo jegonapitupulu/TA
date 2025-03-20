@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\jenis_simpanan;
 use App\Models\Simpanan;
 use App\Models\User;
-use App\Models\JenisSimpanan;
 use Illuminate\Http\Request;
 
 class SimpananController extends Controller
@@ -40,12 +39,17 @@ class SimpananController extends Controller
             'tanggal_simpan' => 'required|date',
         ]);
 
-        $simpanan = new Simpanan($request->all());
-        $simpanan->admin_id = auth()->user()->id; // Set admin_id from logged-in user
-        $simpanan->save();
+        try {
+            $simpanan = new Simpanan($request->all());
+            $simpanan->admin_id = auth()->user()->id; // Set admin_id from logged-in user
+            $simpanan->save();
 
-        return redirect()->route('simpanan.index')
-                         ->with('success', 'Simpanan created successfully.');
+            return redirect()->route('simpanan.index')
+                             ->with('success', 'Simpanan created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('simpanan.index')
+                             ->with('error', 'Failed to create Simpanan.');
+        }
     }
 
     /**
@@ -61,7 +65,7 @@ class SimpananController extends Controller
      */
     public function edit(Simpanan $simpanan)
     {
-        $users = User::all();
+        $users = User::where('role', 'anggota')->get();
         $jenisSimpanan = jenis_simpanan::all();
         return view('simpanan.edit', compact('simpanan', 'users', 'jenisSimpanan'));
     }
@@ -77,12 +81,17 @@ class SimpananController extends Controller
             'tanggal_simpan' => 'required|date',
         ]);
 
-        $simpanan->update($request->all());
-        $simpanan->admin_id = auth()->user()->id; // Update admin_id from logged-in user
-        $simpanan->save();
+        try {
+            $simpanan->update($request->all());
+            $simpanan->admin_id = auth()->user()->id; // Update admin_id from logged-in user
+            $simpanan->save();
 
-        return redirect()->route('simpanan.index')
-                         ->with('success', 'Simpanan updated successfully.');
+            return redirect()->route('simpanan.index')
+                             ->with('success', 'Simpanan updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('simpanan.index')
+                             ->with('error', 'Failed to update Simpanan.');
+        }
     }
 
     /**
@@ -90,9 +99,14 @@ class SimpananController extends Controller
      */
     public function destroy(Simpanan $simpanan)
     {
-        $simpanan->delete();
+        try {
+            $simpanan->delete();
 
-        return redirect()->route('simpanan.index')
-                         ->with('success', 'Simpanan deleted successfully.');
+            return redirect()->route('simpanan.index')
+                             ->with('success', 'Simpanan deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('simpanan.index')
+                             ->with('error', 'Failed to delete Simpanan.');
+        }
     }
 }
