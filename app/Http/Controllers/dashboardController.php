@@ -24,7 +24,14 @@ class DashboardController extends Controller
         $totalAdmins = User::where('role', 'admin')->count();
         $totalAnggota = User::where('role', 'anggota')->count();
 
+        // Get total loans for each month in 2025
+        $monthlyPinjaman = Pinjaman::selectRaw('MONTH(tanggal_pinjam) as month, SUM(jumlah_pinjaman) as total')
+            ->whereYear('tanggal_pinjam', 2025)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('total', 'month');
+
         // Pass data to the view
-        return view('dashboard', compact('totalUsers', 'totalSimpanan', 'totalPinjaman', 'totalAdmins', 'totalAnggota'));
+        return view('dashboard', compact('totalUsers', 'totalSimpanan', 'totalPinjaman', 'totalAdmins', 'totalAnggota', 'monthlyPinjaman'));
     }
 }
