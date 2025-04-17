@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Angsuran;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 class AngsuranController extends Controller
 {
@@ -29,6 +28,41 @@ class AngsuranController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to retrieve Angsuran.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Store a new Angsuran.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pinjaman_id' => 'required|exists:pinjamen,id',
+            'nominal_angsuran' => 'required|numeric|min:1',
+            'tanggal_angsuran' => 'required|date',
+        ]);
+
+        try {
+            $angsuran = Angsuran::create([
+                'pinjaman_id' => $request->pinjaman_id,
+                'jumlah_angsuran' => $request->jumlah_angsuran,
+                'tanggal_angsuran' => $request->tanggal_angsuran,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Angsuran created successfully.',
+                'data' => $angsuran,
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create Angsuran.',
                 'error' => $e->getMessage(),
             ], 500);
         }
