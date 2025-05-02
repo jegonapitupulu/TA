@@ -16,15 +16,47 @@
         </div>
     @endif
 
+    <!-- Search Form -->
+    <form action="{{ route('simpanan.index') }}" method="GET" class="mb-3">
+        <div class="row">
+            <!-- Search by User -->
+            <div class="col-md-3">
+                <input type="text" name="user" class="form-control" placeholder="Cari Nama Penyimpan" value="{{ request('user') }}">
+            </div>
+
+            <!-- Search by Jenis Simpanan -->
+            <div class="col-md-3">
+                <select name="jenis_simpan_id" class="form-control">
+                    <option value="">Pilih Jenis Simpanan</option>
+                    @foreach($jenisSimpanan as $jenis)
+                        <option value="{{ $jenis->id }}" {{ request('jenis_simpan_id') == $jenis->id ? 'selected' : '' }}>
+                            {{ $jenis->nama_jenis_simpanan }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Search by Tanggal Simpan -->
+            <div class="col-md-3">
+                <input type="date" name="tanggal_simpan" class="form-control" value="{{ request('tanggal_simpan') }}">
+            </div>
+
+            <!-- Search Button -->
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Cari</button>
+            </div>
+        </div>
+    </form>
+
     <a href="{{ route('simpanan.create') }}" class="btn btn-success mb-3">Tambah Simpanan</a>
     <table class="table">
         <thead>
             <tr>
-                <th>User ID</th>
+                <th>User</th>
                 <th>Jenis Simpanan</th>
                 <th>Nominal</th>
                 <th>Tanggal Simpan</th>
-                <th>Admin ID</th>
+                <th>Admin</th>
                 <th>Actions</th>
             </tr>
         </thead>

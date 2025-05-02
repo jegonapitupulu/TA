@@ -11,9 +11,30 @@ class PinjamanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pinjaman = Pinjaman::with(['user', 'admin'])->get(); // Load related user and admin data
+        $query = Pinjaman::with(['user', 'admin']); // Start query with related user and admin data
+
+        // Filter by user name (peminjam)
+        if ($request->has('user') && $request->user) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->user . '%');
+            });
+        }
+
+        // Filter by jenis pinjaman
+        if ($request->has('jenis_pinjaman') && $request->jenis_pinjaman) {
+            $query->where('jenis_pinjaman', $request->jenis_pinjaman);
+        }
+
+        // Filter by tanggal pinjaman
+        if ($request->has('tanggal_pinjam') && $request->tanggal_pinjam) {
+            $query->whereDate('tanggal_pinjam', $request->tanggal_pinjam);
+        }
+
+        // Execute the query and get the results
+        $pinjaman = $query->get();
+
         return view('pinjaman.index', compact('pinjaman'));
     }
 
@@ -64,6 +85,7 @@ class PinjamanController extends Controller
      */
     public function show(Pinjaman $pinjaman)
     {
+        $pinjaman->load('angsuran', 'user'); // Load related angsuran and user data
         return view('pinjaman.show', compact('pinjaman'));
     }
 

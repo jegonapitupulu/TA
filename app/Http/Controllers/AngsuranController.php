@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Angsuran;
+use App\Models\Pinjaman;
 use Illuminate\Http\Request;
 
 class AngsuranController extends Controller
@@ -12,7 +13,7 @@ class AngsuranController extends Controller
      */
     public function index()
     {
-        $angsuran = Angsuran::all();
+        $angsuran = Angsuran::with('pinjaman')->get(); // Include related Pinjaman data
         return view('angsuran.index', compact('angsuran'));
     }
 
@@ -21,7 +22,10 @@ class AngsuranController extends Controller
      */
     public function create()
     {
-        //
+        // Fetch only Pinjaman with status_pinjaman = 'belum'
+        $pinjaman = Pinjaman::where('status_pinjaman', 'belum')->get();
+
+        return view('angsuran.create', compact('pinjaman'));
     }
 
     /**
@@ -29,7 +33,21 @@ class AngsuranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'pinjaman_id' => 'required|exists:pinjamans,id',
+            'jumlah_angsuran' => 'required|numeric|min:1',
+            'tanggal_angsuran' => 'required|date',
+        ]);
+
+        try {
+            Angsuran::create($request->all());
+
+            return redirect()->route('angsuran.index')
+                             ->with('success', 'Angsuran created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('angsuran.index')
+                             ->with('error', 'Failed to create Angsuran.');
+        }
     }
 
     /**
@@ -37,7 +55,7 @@ class AngsuranController extends Controller
      */
     public function show(Angsuran $angsuran)
     {
-        //
+        return view('angsuran.show', compact('angsuran'));
     }
 
     /**
@@ -45,7 +63,8 @@ class AngsuranController extends Controller
      */
     public function edit(Angsuran $angsuran)
     {
-        //
+        $pinjaman = Pinjaman::all(); // Fetch all Pinjaman for the dropdown
+        return view('angsuran.edit', compact('angsuran', 'pinjaman'));
     }
 
     /**
@@ -53,7 +72,21 @@ class AngsuranController extends Controller
      */
     public function update(Request $request, Angsuran $angsuran)
     {
-        //
+        $request->validate([
+            'pinjaman_id' => 'required|exists:pinjamans,id',
+            'jumlah_angsuran' => 'required|numeric|min:1',
+            'tanggal_angsuran' => 'required|date',
+        ]);
+
+        try {
+            $angsuran->update($request->all());
+
+            return redirect()->route('angsuran.index')
+                             ->with('success', 'Angsuran updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('angsuran.index')
+                             ->with('error', 'Failed to update Angsuran.');
+        }
     }
 
     /**
@@ -61,6 +94,14 @@ class AngsuranController extends Controller
      */
     public function destroy(Angsuran $angsuran)
     {
-        //
+        try {
+            $angsuran->delete();
+
+            return redirect()->route('angsuran.index')
+                             ->with('success', 'Angsuran deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('angsuran.index')
+                             ->with('error', 'Failed to delete Angsuran.');
+        }
     }
 }

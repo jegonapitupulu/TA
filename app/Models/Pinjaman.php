@@ -29,4 +29,12 @@ class Pinjaman extends Model
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
+
+    /**
+     * Relationship with the Angsuran model.
+     */
+    public function angsuran()
+    {
+        return $this->hasMany(Angsuran::class, 'pinjaman_id');
+    }
 }
