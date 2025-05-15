@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class anggotacontroller extends Controller
+class AnggotaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,6 +39,10 @@ class anggotacontroller extends Controller
             'hp' => 'required|string|max:15',
             'tmt' => 'required|date',
             'status' => 'required|in:aktif,tidak aktif',
+            'badge' => 'required|string|max:50',
+            'no_anggota' => 'required|string|max:50|unique:users,no_anggota',
+            'no_rekening' => 'required|string|max:50',
+            'bank' => 'required|string|max:100',
         ]);
 
         User::create([
@@ -50,6 +54,10 @@ class anggotacontroller extends Controller
             'hp' => $request->hp,
             'tmt' => $request->tmt,
             'status' => $request->status,
+            'badge' => $request->badge,
+            'no_anggota' => $request->no_anggota,
+            'no_rekening' => $request->no_rekening,
+            'bank' => $request->bank,
         ]);
 
         return redirect()->route('anggota.index')->with('success', 'Anggota created successfully.');
@@ -86,7 +94,11 @@ class anggotacontroller extends Controller
             'alamat' => 'required|string|max:255',
             'hp' => 'required|string|max:15',
             'tmt' => 'required|date',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|in:aktif,tidak aktif',
+            'badge' => 'required|string|max:50',
+            'no_anggota' => 'required|string|max:50|unique:users,no_anggota,' . $id,
+            'no_rekening' => 'required|string|max:50',
+            'bank' => 'required|string|max:100',
         ]);
 
         $anggota = User::findOrFail($id);
@@ -99,6 +111,10 @@ class anggotacontroller extends Controller
             'hp' => $request->hp,
             'tmt' => $request->tmt,
             'status' => $request->status,
+            'badge' => $request->badge,
+            'no_anggota' => $request->no_anggota,
+            'no_rekening' => $request->no_rekening,
+            'bank' => $request->bank,
         ]);
 
         return redirect()->route('anggota.index')->with('success', 'Anggota updated successfully.');

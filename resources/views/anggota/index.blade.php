@@ -23,6 +23,7 @@
                 <td>{{ $a->tmt }}</td>
                 <td>{{ $a->status }}</td>
                 <td>
+                    <a href="{{ route('anggota.show', $a->id) }}" class="btn btn-info">Show</a>
                     <a href="{{ route('anggota.edit', $a->id) }}" class="btn btn-primary">Edit</a>
                     <form action="{{ route('anggota.destroy', $a->id) }}" method="POST" style="display:inline-block;">
                         @csrf

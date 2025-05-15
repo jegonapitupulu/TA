@@ -26,6 +26,10 @@ class User extends Authenticatable
         'hp',
         'tmt',
         'status',
+        'badge',
+        'no_anggota',
+        'no_rekening',
+        'bank',
     ];
 
     /**
