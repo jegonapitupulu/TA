@@ -13,7 +13,7 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-        $anggota = User::where('role', 'anggota')->get();
+        $anggota = User::all();
         return view('anggota.index', compact('anggota'));
     }
 
@@ -33,32 +33,32 @@ class AnggotaController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'role' => 'required|in:anggota',
+            'password' => 'nullable|string|min:8',
+            'role' => 'required|in:anggota,admin',
             'alamat' => 'required|string|max:255',
             'hp' => 'required|string|max:15',
             'tmt' => 'required|date',
             'status' => 'required|in:aktif,tidak aktif',
-            'badge' => 'required|string|max:50',
-            'no_anggota' => 'required|string|max:50|unique:users,no_anggota',
-            'no_rekening' => 'required|string|max:50',
-            'bank' => 'required|string|max:100',
+            'badge' => 'nullable|string|max:50',
+            'no_anggota' => 'nullable|string|max:50|unique:users,no_anggota',
+            'no_rekening' => 'nullable|string|max:50',
+            'bank' => 'nullable|string|max:100',
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-            'alamat' => $request->alamat,
-            'hp' => $request->hp,
-            'tmt' => $request->tmt,
-            'status' => $request->status,
-            'badge' => $request->badge,
-            'no_anggota' => $request->no_anggota,
-            'no_rekening' => $request->no_rekening,
-            'bank' => $request->bank,
+        $data = $request->only([
+            'name', 'email', 'role', 'alamat', 'hp', 'tmt', 'status'
         ]);
+
+        if ($request->role === 'anggota') {
+            $data['badge'] = $request->badge;
+            $data['no_anggota'] = $request->no_anggota;
+            $data['no_rekening'] = $request->no_rekening;
+            $data['bank'] = $request->bank;
+        } elseif ($request->role === 'admin') {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        User::create($data);
 
         return redirect()->route('anggota.index')->with('success', 'Anggota created successfully.');
     }

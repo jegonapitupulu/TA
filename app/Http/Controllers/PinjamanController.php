@@ -146,4 +146,13 @@ class PinjamanController extends Controller
                              ->with('error', 'Failed to delete Pinjaman.');
         }
     }
+
+    /**
+     * Print the specified resource.
+     */
+    public function print(Pinjaman $pinjaman)
+    {
+        $pinjaman->load('user', 'angsuran'); // Pastikan relasi dimuat
+        return view('pinjaman.print', compact('pinjaman'));
+    }
 }

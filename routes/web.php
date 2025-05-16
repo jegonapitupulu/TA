@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('jenis_simpanan', JenisSimpananController::class);
 Route::resource('pinjaman', PinjamanController::class);
+Route::get('/pinjaman/{pinjaman}/print', [PinjamanController::class, 'print'])->name('pinjaman.print');
 Route::resource('angsuran', AngsuranController::class);
 Route::resource('simpanan', SimpananController::class);
 Route::resource('anggota', AnggotaController::class); // Add this line
