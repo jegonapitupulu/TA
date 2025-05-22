@@ -34,13 +34,26 @@ class AngsuranController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'pinjaman_id' => 'required|exists:pinjamans,id',
-            'jumlah_angsuran' => 'required|numeric|min:1',
+            'pinjaman_id' => 'required|exists:pinjamen,id',
+            'nominal_angsuran' => 'required|numeric|min:1',
             'tanggal_angsuran' => 'required|date',
         ]);
 
         try {
-            Angsuran::create($request->all());
+            // Hitung angsuran_ke berdasarkan jumlah angsuran sebelumnya
+            $angsuranKe = Angsuran::where('pinjaman_id', $request->pinjaman_id)->count() + 1;
+
+            // Tambahkan admin_id berdasarkan pengguna yang sedang login
+            $adminId = auth()->id();
+
+            // Buat data angsuran baru
+            Angsuran::create([
+                'pinjaman_id' => $request->pinjaman_id,
+                'nominal_angsuran' => $request->nominal_angsuran,
+                'tanggal_angsuran' => $request->tanggal_angsuran,
+                'angsuran_ke' => $angsuranKe,
+                'admin_id' => $adminId,
+            ]);
 
             return redirect()->route('angsuran.index')
                              ->with('success', 'Angsuran created successfully.');

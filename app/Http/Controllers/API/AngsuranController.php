@@ -50,7 +50,7 @@ class AngsuranController extends Controller
         try {
             $angsuran = Angsuran::create([
                 'pinjaman_id' => $request->pinjaman_id,
-                'jumlah_angsuran' => $request->jumlah_angsuran,
+                'nominal_angsuran' => $request->nominal_angsuran,
                 'tanggal_angsuran' => $request->tanggal_angsuran,
             ]);
 
