@@ -36,11 +36,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th>User</th>
+                <th>Nama</th>
                 <th>Jenis Pinjaman</th>
+                <th>Jumlah Pinjaman</th> <!-- Kolom baru -->
                 <th>Tanggal Pinjam</th>
-                <th>Admin</th>
-                <th>Actions</th>
+                <th>Di Input Oleh</th>
+                <th>Tindakan</th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +49,7 @@
             <tr>
                 <td>{{ $p->user->name }}</td>
                 <td>{{ $p->jenis_pinjaman }}</td>
+                <td>{{ number_format($p->jumlah_pinjaman, 0, ',', '.') }}</td> <!-- Data baru -->
                 <td>{{ $p->tanggal_pinjam }}</td>
                 <td>{{ $p->admin->name }}</td>
                 <td>

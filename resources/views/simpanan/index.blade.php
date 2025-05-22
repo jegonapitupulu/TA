@@ -52,12 +52,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th>User</th>
+                <th>Nama</th>
                 <th>Jenis Simpanan</th>
                 <th>Nominal</th>
                 <th>Tanggal Simpan</th>
-                <th>Admin</th>
-                <th>Actions</th>
+                <th>Di Inpu Oleh</th>
+                <th>Tindakan</th>
             </tr>
         </thead>
         <tbody>

@@ -21,7 +21,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>User ID</th>
+                <th>Nama</th>
                 <th>Jenis Pinjaman</th>
                 <th>Jumlah Pinjaman</th>
                 <th>Tanggal Angsuran</th>
