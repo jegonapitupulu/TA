@@ -5,8 +5,8 @@ use App\Http\Controllers\JenissimpananController;
 use App\Http\Controllers\PinjamanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SimpananController;
-use App\Http\Controllers\AnggotaController; // Add this line
-use App\Http\Controllers\DashboardController; // Add this line
+use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,7 +25,8 @@ Route::resource('jenis_simpanan', JenisSimpananController::class);
 Route::resource('pinjaman', PinjamanController::class);
 Route::get('/pinjaman/{pinjaman}/print', [PinjamanController::class, 'print'])->name('pinjaman.print');
 Route::resource('angsuran', AngsuranController::class);
+Route::get('/angsuran/{angsuran}/print', [AngsuranController::class, 'print'])->name('angsuran.print'); // Route Print Angsuran
 Route::resource('simpanan', SimpananController::class);
-Route::resource('anggota', AnggotaController::class); // Add this line
+Route::resource('anggota', AnggotaController::class);
 
 require __DIR__.'/auth.php';

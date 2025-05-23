@@ -39,28 +39,29 @@ class AngsuranController extends Controller
             'tanggal_angsuran' => 'required|date',
         ]);
 
-        try {
-            // Hitung angsuran_ke berdasarkan jumlah angsuran sebelumnya
-            $angsuranKe = Angsuran::where('pinjaman_id', $request->pinjaman_id)->count() + 1;
+        // Hitung angsuran_ke berdasarkan jumlah angsuran sebelumnya
+        $angsuranKe = Angsuran::where('pinjaman_id', $request->pinjaman_id)->count() + 1;
 
-            // Tambahkan admin_id berdasarkan pengguna yang sedang login
-            $adminId = auth()->id();
+        // Tambahkan admin_id berdasarkan pengguna yang sedang login
+        $adminId = auth()->id();
 
-            // Buat data angsuran baru
-            Angsuran::create([
-                'pinjaman_id' => $request->pinjaman_id,
-                'nominal_angsuran' => $request->nominal_angsuran,
-                'tanggal_angsuran' => $request->tanggal_angsuran,
-                'angsuran_ke' => $angsuranKe,
-                'admin_id' => $adminId,
-            ]);
-
-            return redirect()->route('angsuran.index')
-                             ->with('success', 'Angsuran created successfully.');
-        } catch (\Exception $e) {
-            return redirect()->route('angsuran.index')
-                             ->with('error', 'Failed to create Angsuran.');
+        // Tambahkan bunga 5% untuk angsuran ke-1 hingga ke-5
+        $nominalAngsuran = $request->nominal_angsuran;
+        if ($angsuranKe >= 1 && $angsuranKe <= 5) {
+            $nominalAngsuran += $nominalAngsuran * 0.05; // Tambahkan bunga 5%
         }
+
+        // Buat data angsuran baru
+        Angsuran::create([
+            'pinjaman_id' => $request->pinjaman_id,
+            'nominal_angsuran' => $nominalAngsuran,
+            'tanggal_angsuran' => $request->tanggal_angsuran,
+            'angsuran_ke' => $angsuranKe,
+            'admin_id' => $adminId,
+        ]);
+
+        return redirect()->route('angsuran.index')
+                         ->with('success', 'Angsuran created successfully.');
     }
 
     /**
@@ -91,15 +92,10 @@ class AngsuranController extends Controller
             'tanggal_angsuran' => 'required|date',
         ]);
 
-        try {
-            $angsuran->update($request->all());
+        $angsuran->update($request->all());
 
-            return redirect()->route('angsuran.index')
-                             ->with('success', 'Angsuran updated successfully.');
-        } catch (\Exception $e) {
-            return redirect()->route('angsuran.index')
-                             ->with('error', 'Failed to update Angsuran.');
-        }
+        return redirect()->route('angsuran.index')
+                         ->with('success', 'Angsuran updated successfully.');
     }
 
     /**
@@ -107,14 +103,18 @@ class AngsuranController extends Controller
      */
     public function destroy(Angsuran $angsuran)
     {
-        try {
-            $angsuran->delete();
+        $angsuran->delete();
 
-            return redirect()->route('angsuran.index')
-                             ->with('success', 'Angsuran deleted successfully.');
-        } catch (\Exception $e) {
-            return redirect()->route('angsuran.index')
-                             ->with('error', 'Failed to delete Angsuran.');
-        }
+        return redirect()->route('angsuran.index')
+                         ->with('success', 'Angsuran deleted successfully.');
+    }
+
+    /**
+     * Print the specified resource.
+     */
+    public function print($id)
+    {
+        $angsuran = Angsuran::with('pinjaman.user', 'admin')->findOrFail($id); // Load related data
+        return view('angsuran.print', compact('angsuran'));
     }
 }

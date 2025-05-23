@@ -38,7 +38,9 @@
             <tr>
                 <th>Nama</th>
                 <th>Jenis Pinjaman</th>
-                <th>Jumlah Pinjaman</th> <!-- Kolom baru -->
+                <th>Jumlah Pinjaman</th>
+                <th>Total Angsuran</th>
+                <th>Sisa Pinjaman</th> <!-- Kolom baru -->
                 <th>Tanggal Pinjam</th>
                 <th>Di Input Oleh</th>
                 <th>Tindakan</th>
@@ -49,7 +51,9 @@
             <tr>
                 <td>{{ $p->user->name }}</td>
                 <td>{{ $p->jenis_pinjaman }}</td>
-                <td>{{ number_format($p->jumlah_pinjaman, 0, ',', '.') }}</td> <!-- Data baru -->
+                <td>{{ number_format($p->jumlah_pinjaman, 0, ',', '.') }}</td>
+                <td>{{ number_format($p->angsuran->sum('nominal_angsuran'), 0, ',', '.') }}</td>
+                <td>{{ number_format($p->jumlah_pinjaman - $p->angsuran->sum('nominal_angsuran'), 0, ',', '.') }}</td> <!-- Data baru -->
                 <td>{{ $p->tanggal_pinjam }}</td>
                 <td>{{ $p->admin->name }}</td>
                 <td>

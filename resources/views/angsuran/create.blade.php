@@ -19,11 +19,11 @@
         @csrf
         <div class="mb-3">
             <label for="pinjaman_id" class="form-label">Pinjaman</label>
-            <select name="pinjaman_id" id="pinjaman_id" class="form-control @error('pinjaman_id') is-invalid @enderror" required>
+            <select name="pinjaman_id" id="pinjaman_id" class="form-control @error('pinjaman_id') is-invalid @enderror" required onchange="updateNominalAngsuran()">
                 <option value="">Pilih Pinjaman</option>
                 @foreach($pinjaman as $p)
-                    <option value="{{ $p->id }}" {{ old('pinjaman_id') == $p->id ? 'selected' : '' }}>
-                        {{ $p->id }} - {{ $p->user->name }} ({{ $p->jumlah_pinjaman }})
+                    <option value="{{ $p->id }}" data-jumlah-pinjaman="{{ $p->jumlah_pinjaman }}" {{ old('pinjaman_id') == $p->id ? 'selected' : '' }}>
+                        {{ $p->id }} - {{ $p->user->name }} ({{ number_format($p->jumlah_pinjaman, 0, ',', '.') }})
                     </option>
                 @endforeach
             </select>
@@ -35,7 +35,7 @@
         </div>
         <div class="mb-3">
             <label for="nominal_angsuran" class="form-label">Nominal Angsuran</label>
-            <input type="number" class="form-control @error('nominal_angsuran') is-invalid @enderror" id="nominal_angsuran" name="nominal_angsuran" value="{{ old('nominal_angsuran') }}" required>
+            <input type="number" class="form-control @error('nominal_angsuran') is-invalid @enderror" id="nominal_angsuran" name="nominal_angsuran" value="{{ old('nominal_angsuran') }}" readonly required>
             @error('nominal_angsuran')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -55,4 +55,20 @@
         <a href="{{ route('angsuran.index') }}" class="btn btn-secondary">Batal</a>
     </form>
 </div>
+
+<script>
+    function updateNominalAngsuran() {
+        const pinjamanSelect = document.getElementById('pinjaman_id');
+        const selectedOption = pinjamanSelect.options[pinjamanSelect.selectedIndex];
+        const jumlahPinjaman = selectedOption.getAttribute('data-jumlah-pinjaman');
+        const nominalAngsuranInput = document.getElementById('nominal_angsuran');
+
+        if (jumlahPinjaman) {
+            const nominalAngsuran = Math.floor(jumlahPinjaman / 10); // Hitung nominal angsuran
+            nominalAngsuranInput.value = nominalAngsuran; // Isi otomatis
+        } else {
+            nominalAngsuranInput.value = ''; // Kosongkan jika tidak ada pinjaman yang dipilih
+        }
+    }
+</script>
 @endsection

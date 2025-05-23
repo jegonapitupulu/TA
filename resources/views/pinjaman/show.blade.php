@@ -39,7 +39,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID Angsuran</th>
+                <th>angsuran_ke</th>
                 <th>Jumlah Angsuran</th>
                 <th>Tanggal Angsuran</th>
             </tr>
@@ -47,7 +47,7 @@
         <tbody>
             @forelse($pinjaman->angsuran as $angsuran)
             <tr>
-                <td>{{ $angsuran->id }}</td>
+                <td>{{ $angsuran->angsuran_ke }}</td>
                 <td>{{ number_format($angsuran->nominal_angsuran, 0, ',', '.') }}</td>
                 <td>{{ $angsuran->tanggal_angsuran }}</td>
             </tr>

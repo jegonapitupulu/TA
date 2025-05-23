@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Pinjaman</title>
+    <title>Tanda Bukti Pinjaman</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <style>
         @media print {
@@ -20,6 +20,13 @@
             margin-bottom: 30px;
             font-weight: bold;
         }
+        .kop-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .kop-header h2, .kop-header h4 {
+            margin: 0;
+        }
         .table {
             width: 100% !important;
         }
@@ -30,11 +37,26 @@
         .table-bordered th, .table-bordered td {
             border: 1px solid #ddd !important;
         }
+        .footer {
+            margin-top: 50px;
+        }
+        .signature-space {
+            margin-top: 50px;
+            height: 50px;
+        }
     </style>
 </head>
 <body>
 <div class="container mt-4">
-    <h1 class="header-title">Detail Pinjaman</h1>
+    <!-- Kop Header -->
+    <div class="kop-header">
+        <h2>KOPKAR RUSARI</h2>
+        <h4>Koperasi Karyawan Rumah Sakit Pusri</h4>
+        <p>Alamat: Jl. Flamboyan No.1 Telpon: 0711-712222 ext. 3712</p>
+        <hr>
+    </div>
+
+    <h1 class="header-title">Tanda Bukti Pinjaman</h1>
     <hr>
 
     <!-- Informasi Pinjaman -->
@@ -54,42 +76,12 @@
                 <td>{{ $pinjaman->user->name }}</td>
             </tr>
             <tr>
-                <td><strong>Badge</strong></td>
-                <td>{{ $pinjaman->user->badge }}</td>
-            </tr>
-            <tr>
-                <td><strong>Nomor Anggota</strong></td>
-                <td>{{ $pinjaman->user->no_anggota }}</td>
-            </tr>
-            <tr>
-                <td><strong>Alamat</strong></td>
-                <td>{{ $pinjaman->user->alamat }}</td>
-            </tr>
-            <tr>
-                <td><strong>Nomor HP</strong></td>
-                <td>{{ $pinjaman->user->hp }}</td>
-            </tr>
-            <tr>
-                <td><strong>Jenis Pinjaman</strong></td>
-                <td>{{ ucfirst($pinjaman->jenis_pinjaman) }}</td>
-            </tr>
-            @if($pinjaman->jenis_pinjaman === 'barang')
-            <tr>
-                <td><strong>Nama Bank</strong></td>
-                <td>{{ $pinjaman->user->bank }}</td>
-            </tr>
-            <tr>
-                <td><strong>Nomor Rekening</strong></td>
-                <td>{{ $pinjaman->user->no_rekening }}</td>
-            </tr>
-            @endif
-            <tr>
                 <td><strong>Jumlah Pinjaman</strong></td>
                 <td>{{ number_format($pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
             </tr>
             <tr>
                 <td><strong>Tanggal Pinjam</strong></td>
-                <td>{{ $pinjaman->tanggal_pinjam }}</td>
+                <td>{{ \Carbon\Carbon::parse($pinjaman->tanggal_pinjam)->translatedFormat('d F Y') }}</td>
             </tr>
             <tr>
                 <td><strong>Status</strong></td>
@@ -113,7 +105,7 @@
             <tr>
                 <td>{{ $angsuran->id }}</td>
                 <td>{{ number_format($angsuran->nominal_angsuran, 0, ',', '.') }}</td>
-                <td>{{ $angsuran->tanggal_angsuran }}</td>
+                <td>{{ \Carbon\Carbon::parse($angsuran->tanggal_angsuran)->translatedFormat('d F Y') }}</td>
             </tr>
             @empty
             <tr>
@@ -122,6 +114,36 @@
             @endforelse
         </tbody>
     </table>
+
+    <!-- Footer -->
+    <div class="footer mt-5">
+        <div class="text-center mb-4">
+            <p>Palembang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <td class="text-center">
+                    <p><strong>Mengetahui</strong></p>
+                    <div class="signature-space">..............</div>
+                    <p>{{ auth()->user()->name }}</p> <!-- Nama Admin -->
+                </td>
+                <td class="text-center">
+                    <p><strong>Pemohon</strong></p>
+                    <div class="signature-space">..............</div>
+                    <p>{{ $pinjaman->user->name }}</p> <!-- Nama Nasabah -->
+                </td>
+            </tr>
+        </table>
+        <div class="text-center mt-4">
+            <p><strong>Disetujui Oleh</strong></p>
+            <div class="signature-space">..............</div>
+            <p>1. Ketua</p>
+            <div class="signature-space">..............</div>
+            <p>2. Sekretaris</p>
+            <div class="signature-space">..............</div>
+            <p>3. Bendahara</p>
+        </div>
+    </div>
 
     <!-- Print Button -->
     <div class="no-print mt-3 text-center">
