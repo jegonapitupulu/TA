@@ -3,6 +3,13 @@
 <div class="container">
     <h1>Pinjaman</h1>
 
+    <!-- Display Error Message -->
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
     <!-- Search Form -->
     <form action="{{ route('pinjaman.index') }}" method="GET" class="mb-3">
         <div class="row">

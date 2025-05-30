@@ -136,6 +136,12 @@ class PinjamanController extends Controller
      */
     public function destroy(Pinjaman $pinjaman)
     {
+        // Cek status pinjaman, hanya bisa dihapus jika status 'lunas'
+        if ($pinjaman->status_pinjaman !== 'lunas') {
+            return redirect()->route('pinjaman.index')
+                             ->with('error', 'Pinjaman tidak bisa dihapus karena status belum lunas.');
+        }
+
         try {
             $pinjaman->delete();
 

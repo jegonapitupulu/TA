@@ -28,6 +28,7 @@
                 <th>Nominal Angsuran</th>
                 <th>Sisa Pinjaman</th>
                 <th>Angsuran Ke</th>
+                <th>Sisa Angsuran</th> <!-- Tambahan kolom -->
                 <th>Di Input Oleh</th>
                 <th>Actions</th>
             </tr>
@@ -42,6 +43,9 @@
                 <td>{{ number_format($a->nominal_angsuran, 0, ',', '.') }}</td>
                 <td>{{ number_format($a->pinjaman->jumlah_pinjaman - $a->pinjaman->angsuran->sum('nominal_angsuran'), 0, ',', '.') }}</td>
                 <td>{{ $a->angsuran_ke }}</td>
+                <td>
+                    {{ 10 - $a->angsuran_ke }}
+                </td> <!-- Sisa Angsuran -->
                 <td>{{ $a->admin->name }}</td>
                 <td>
                     <a href="{{ route('angsuran.edit', $a->id) }}" class="btn btn-primary">Edit</a>
@@ -50,7 +54,7 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
-                    <a href="{{ route('angsuran.print', $a->id) }}" class="btn btn-secondary">Cetak</a> <!-- Tombol Cetak -->
+                    <a href="{{ route('angsuran.print', $a->id) }}" class="btn btn-secondary">Cetak</a>
                 </td>
             </tr>
             @endforeach
