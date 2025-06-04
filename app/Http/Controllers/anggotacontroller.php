@@ -39,9 +39,9 @@ class AnggotaController extends Controller
             'hp' => 'required|string|max:15',
             'tmt' => 'required|date',
             'status' => 'required|in:aktif,tidak aktif',
-            'badge' => 'nullable|string|max:50',
-            'no_anggota' => 'nullable|string|max:50|unique:users,no_anggota',
-            'no_rekening' => 'nullable|string|max:50',
+            'badge' => 'nullable|string|max:5',
+            'no_anggota' => 'nullable|string|max:10|unique:users,no_anggota',
+            'no_rekening' => 'nullable|string|max:20',
             'bank' => 'nullable|string|max:100',
         ]);
 
