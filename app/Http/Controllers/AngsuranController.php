@@ -13,7 +13,9 @@ class AngsuranController extends Controller
      */
     public function index()
     {
-        $angsuran = Angsuran::with('pinjaman')->get(); // Include related Pinjaman data
+        $angsuran = Angsuran::with('pinjaman')
+            ->orderBy('tanggal_angsuran', 'desc')
+            ->get(); // Urutkan berdasarkan tanggal angsuran terbaru
         return view('angsuran.index', compact('angsuran'));
     }
 

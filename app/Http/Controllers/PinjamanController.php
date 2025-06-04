@@ -32,8 +32,8 @@ class PinjamanController extends Controller
             $query->whereDate('tanggal_pinjam', $request->tanggal_pinjam);
         }
 
-        // Execute the query and get the results
-        $pinjaman = $query->get();
+        // Urutkan berdasarkan tanggal pinjam terbaru
+        $pinjaman = $query->orderBy('tanggal_pinjam', 'desc')->get();
 
         return view('pinjaman.index', compact('pinjaman'));
     }

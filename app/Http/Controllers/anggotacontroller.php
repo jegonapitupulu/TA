@@ -13,7 +13,7 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-        $anggota = User::all();
+        $anggota = User::orderBy('name', 'asc')->get();
         return view('anggota.index', compact('anggota'));
     }
 

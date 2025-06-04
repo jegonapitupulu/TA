@@ -34,7 +34,7 @@ class SimpananController extends Controller
         }
 
         // Execute the query and get the results
-        $simpanan = $query->get();
+        $simpanan = $query->orderBy('tanggal_simpan', 'desc')->get(); // Urutkan berdasarkan tanggal simpanan terbaru
         $jenisSimpanan = jenis_simpanan::all(); // Fetch all jenis simpanan for the dropdown
 
         return view('simpanan.index', compact('simpanan', 'jenisSimpanan'));
