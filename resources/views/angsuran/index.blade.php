@@ -17,7 +17,9 @@
         </div>
     @endif
 
-    <a href="{{ route('angsuran.create') }}" class="btn btn-success mb-3">Tambah Angsuran</a>
+    @if(Auth::user()->role === 'admin')
+        <a href="{{ route('angsuran.create') }}" class="btn btn-success mb-3">Tambah Angsuran</a>
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -48,12 +50,14 @@
                 </td> <!-- Sisa Angsuran -->
                 <td>{{ $a->admin->name }}</td>
                 <td>
-                    <a href="{{ route('angsuran.edit', $a->id) }}" class="btn btn-primary">Edit</a>
-                    <form action="{{ route('angsuran.destroy', $a->id) }}" method="POST" style="display:inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('angsuran.edit', $a->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('angsuran.destroy', $a->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    @endif
                     <a href="{{ route('angsuran.print', $a->id) }}" class="btn btn-secondary">Cetak</a>
                 </td>
             </tr>

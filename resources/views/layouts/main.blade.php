@@ -162,43 +162,69 @@
               data-accordion="false"
             >
               
-              <li class="nav-item">
-                <a href="{{url('dashboard')}}" class="nav-link">
-                  <i class="nav-icon bi bi-card-checklist"></i>
-                  <p>dashboard</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('jenis_simpanan')}}" class="nav-link">
-                  <i class="nav-icon bi bi-card-checklist"></i>
-                  <p>Jenis Simpanan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('simpanan')}}" class="nav-link">
-                  <i class="nav-icon bi bi-box-arrow-down"></i>
-                  <p>Simpanan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('pinjaman')}}" class="nav-link">
-                  <i class="nav-icon bi bi-piggy-bank"></i>
-                  <p>Pinjaman</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('angsuran')}}" class="nav-link">
-                  <i class="nav-icon bi bi-coin"></i>
-                  <p>Angsuran</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('anggota')}}" class="nav-link">
-                  <i class="nav-icon bi bi-person"></i>
-                  <p>Anggota</p>
-                </a>
-              </li>
-              
+              @if(Auth::user()->role === 'anggota')
+                  <li class="nav-item">
+                      <a href="{{url('dashboard')}}" class="nav-link">
+                          <i class="nav-icon bi bi-card-checklist"></i>
+                          <p>Dashboard</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{url('simpanan')}}" class="nav-link">
+                          <i class="nav-icon bi bi-box-arrow-down"></i>
+                          <p>Simpanan</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{url('pinjaman')}}" class="nav-link">
+                          <i class="nav-icon bi bi-piggy-bank"></i>
+                          <p>Pinjaman</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{url('angsuran')}}" class="nav-link">
+                          <i class="nav-icon bi bi-coin"></i>
+                          <p>Angsuran</p>
+                      </a>
+                  </li>
+              @else
+                  <li class="nav-item">
+                      <a href="{{url('dashboard')}}" class="nav-link">
+                          <i class="nav-icon bi bi-card-checklist"></i>
+                          <p>dashboard</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{url('jenis_simpanan')}}" class="nav-link">
+                          <i class="nav-icon bi bi-card-checklist"></i>
+                          <p>Jenis Simpanan</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{url('simpanan')}}" class="nav-link">
+                          <i class="nav-icon bi bi-box-arrow-down"></i>
+                          <p>Simpanan</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{url('pinjaman')}}" class="nav-link">
+                          <i class="nav-icon bi bi-piggy-bank"></i>
+                          <p>Pinjaman</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{url('angsuran')}}" class="nav-link">
+                          <i class="nav-icon bi bi-coin"></i>
+                          <p>Angsuran</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{url('anggota')}}" class="nav-link">
+                          <i class="nav-icon bi bi-person"></i>
+                          <p>Anggota</p>
+                      </a>
+                  </li>
+              @endif
             </ul>
             <!--end::Sidebar Menu-->
           </nav>

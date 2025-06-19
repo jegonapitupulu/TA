@@ -15,21 +15,26 @@ class PinjamanController extends Controller
     {
         $query = Pinjaman::with(['user', 'admin']); // Start query with related user and admin data
 
-        // Filter by user name (peminjam)
-        if ($request->has('user') && $request->user) {
-            $query->whereHas('user', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->user . '%');
-            });
-        }
+        // Jika user adalah anggota, hanya tampilkan pinjaman miliknya sendiri
+        if (auth()->user()->role === 'anggota') {
+            $query->where('user_id', auth()->id());
+        } else {
+            // Filter by user name (peminjam)
+            if ($request->has('user') && $request->user) {
+                $query->whereHas('user', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->user . '%');
+                });
+            }
 
-        // Filter by jenis pinjaman
-        if ($request->has('jenis_pinjaman') && $request->jenis_pinjaman) {
-            $query->where('jenis_pinjaman', $request->jenis_pinjaman);
-        }
+            // Filter by jenis pinjaman
+            if ($request->has('jenis_pinjaman') && $request->jenis_pinjaman) {
+                $query->where('jenis_pinjaman', $request->jenis_pinjaman);
+            }
 
-        // Filter by tanggal pinjaman
-        if ($request->has('tanggal_pinjam') && $request->tanggal_pinjam) {
-            $query->whereDate('tanggal_pinjam', $request->tanggal_pinjam);
+            // Filter by tanggal pinjaman
+            if ($request->has('tanggal_pinjam') && $request->tanggal_pinjam) {
+                $query->whereDate('tanggal_pinjam', $request->tanggal_pinjam);
+            }
         }
 
         // Urutkan berdasarkan tanggal pinjam terbaru

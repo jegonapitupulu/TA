@@ -39,7 +39,9 @@
         </div>
     </form>
 
+    @if(Auth::user()->role === 'admin')
     <a href="{{ route('pinjaman.create') }}" class="btn btn-success mb-3">Tambah Pinjaman</a>
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -65,12 +67,14 @@
                 <td>{{ $p->admin->name }}</td>
                 <td>
                     <a href="{{ route('pinjaman.show', $p->id) }}" class="btn btn-info">Detail</a>
-                    <a href="{{ route('pinjaman.edit', $p->id) }}" class="btn btn-primary">Edit</a>
-                    <form action="{{ route('pinjaman.destroy', $p->id) }}" method="POST" style="display:inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('pinjaman.edit', $p->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('pinjaman.destroy', $p->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

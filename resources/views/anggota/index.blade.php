@@ -32,7 +32,9 @@
         </div>
     </form>
 
-    <a href="{{ route('anggota.create') }}" class="btn btn-success mb-3">Tambah Anggota</a>
+    @if(Auth::user()->role === 'admin')
+        <a href="{{ route('anggota.create') }}" class="btn btn-success mb-3">Tambah Anggota</a>
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -57,11 +59,13 @@
                 <td>
                     <a href="{{ route('anggota.show', $a->id) }}" class="btn btn-info">Show</a>
                     <a href="{{ route('anggota.edit', $a->id) }}" class="btn btn-primary">Edit</a>
+                    @if($a->role !== 'admin')
                     <form action="{{ route('anggota.destroy', $a->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

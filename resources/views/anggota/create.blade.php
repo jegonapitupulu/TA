@@ -64,7 +64,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="hp" class="form-label">Nomor HP</label>
-                    <input type="text" class="form-control" id="hp" name="hp" value="{{ old('hp') }}" required>
+                    <input type="number" min="0" class="form-control" id="hp" name="hp" value="{{ old('hp') }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="tmt" class="form-label">Tanggal Mulai Tugas (TMT)</label>
@@ -83,15 +83,15 @@
                 </div>
                 <div class="mb-3">
                     <label for="badge" class="form-label">Badge</label>
-                    <input type="text" class="form-control" id="badge" name="badge" value="{{ old('badge') }}" required>
+                    <input type="number" min="0" class="form-control" id="badge" name="badge" value="{{ old('badge') }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="no_anggota" class="form-label">Nomor Anggota</label>
-                    <input type="text" class="form-control" id="no_anggota" name="no_anggota" value="{{ old('no_anggota') }}" required>
+                    <input type="number" min="0" class="form-control" id="no_anggota" name="no_anggota" value="{{ old('no_anggota') }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="no_rekening" class="form-label">Nomor Rekening</label>
-                    <input type="text" class="form-control" id="no_rekening" name="no_rekening" value="{{ old('no_rekening') }}" required>
+                    <input type="number" min="0" class="form-control" id="no_rekening" name="no_rekening" value="{{ old('no_rekening') }}" required>
                 </div>
                 <div class="mb-3">
                     <label for="bank" class="form-label">Bank</label>
@@ -103,17 +103,5 @@
     </form>
 </div>
 
-<script>
-    document.getElementById('role').addEventListener('change', function () {
-        const passwordSection = document.getElementById('password-section');
-        const passwordConfirmationSection = document.getElementById('password-confirmation-section');
-        if (this.value === 'anggota') {
-            passwordSection.style.display = 'none';
-            passwordConfirmationSection.style.display = 'none';
-        } else {
-            passwordSection.style.display = 'block';
-            passwordConfirmationSection.style.display = 'block';
-        }
-    });
-</script>
+
 @endsection

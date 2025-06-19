@@ -48,7 +48,9 @@
         </div>
     </form>
 
-    <a href="{{ route('simpanan.create') }}" class="btn btn-success mb-3">Tambah Simpanan</a>
+    @if(Auth::user()->role === 'admin')
+        <a href="{{ route('simpanan.create') }}" class="btn btn-success mb-3">Tambah Simpanan</a>
+    @endif
     <table class="table">
         <thead>
             <tr>
@@ -69,12 +71,14 @@
                 <td>{{ $s->tanggal_simpan }}</td>
                 <td>{{ $s->admin->name }}</td>
                 <td>
-                    <a href="{{ route('simpanan.edit', $s->id) }}" class="btn btn-primary">Edit</a>
-                    <button class="btn btn-danger btn-delete" data-id="{{ $s->id }}">Delete</button>
-                    <form id="delete-form-{{ $s->id }}" action="{{ route('simpanan.destroy', $s->id) }}" method="POST" style="display: none;">
-                        @csrf
-                        @method('DELETE')
-                    </form>
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('simpanan.edit', $s->id) }}" class="btn btn-primary">Edit</a>
+                        <button class="btn btn-danger btn-delete" data-id="{{ $s->id }}">Delete</button>
+                        <form id="delete-form-{{ $s->id }}" action="{{ route('simpanan.destroy', $s->id) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

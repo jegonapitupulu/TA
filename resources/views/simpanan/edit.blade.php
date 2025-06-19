@@ -3,6 +3,9 @@
 @section('content')
 <div class="container">
     <h1>Edit Simpanan</h1>
+    @if(Auth::user()->role === 'admin')
+        <a href="{{ route('simpanan.create') }}" class="btn btn-success mb-3">Tambah Simpanan</a>
+    @endif
     <form action="{{ route('simpanan.update', $simpanan->id) }}" method="POST">
         @csrf
         @method('PUT')

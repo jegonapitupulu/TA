@@ -16,21 +16,26 @@ class SimpananController extends Controller
     {
         $query = Simpanan::with(['user', 'jenisSimpanan', 'admin']); // Start query with related user, jenisSimpanan, and admin data
 
-        // Filter by user name (anggota)
-        if ($request->has('user') && $request->user) {
-            $query->whereHas('user', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->user . '%');
-            });
-        }
+        // Jika user adalah anggota, hanya tampilkan simpanan miliknya sendiri
+        if (auth()->user()->role === 'anggota') {
+            $query->where('user_id', auth()->id());
+        } else {
+            // Filter by user name (anggota)
+            if ($request->has('user') && $request->user) {
+                $query->whereHas('user', function ($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->user . '%');
+                });
+            }
 
-        // Filter by jenis simpanan
-        if ($request->has('jenis_simpan_id') && $request->jenis_simpan_id) {
-            $query->where('jenis_simpan_id', $request->jenis_simpan_id);
-        }
+            // Filter by jenis simpanan
+            if ($request->has('jenis_simpan_id') && $request->jenis_simpan_id) {
+                $query->where('jenis_simpan_id', $request->jenis_simpan_id);
+            }
 
-        // Filter by tanggal simpanan
-        if ($request->has('tanggal_simpan') && $request->tanggal_simpan) {
-            $query->whereDate('tanggal_simpan', $request->tanggal_simpan);
+            // Filter by tanggal simpanan
+            if ($request->has('tanggal_simpan') && $request->tanggal_simpan) {
+                $query->whereDate('tanggal_simpan', $request->tanggal_simpan);
+            }
         }
 
         // Execute the query and get the results

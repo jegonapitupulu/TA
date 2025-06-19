@@ -13,9 +13,20 @@ class AngsuranController extends Controller
      */
     public function index()
     {
-        $angsuran = Angsuran::with('pinjaman')
-            ->orderBy('tanggal_angsuran', 'desc')
-            ->get(); // Urutkan berdasarkan tanggal angsuran terbaru
+        if (auth()->user()->role === 'anggota') {
+            // Hanya tampilkan angsuran milik anggota yang login
+            $angsuran = Angsuran::whereHas('pinjaman', function($q) {
+                    $q->where('user_id', auth()->id());
+                })
+                ->with('pinjaman')
+                ->orderBy('tanggal_angsuran', 'desc')
+                ->get();
+        } else {
+            // Admin bisa lihat semua angsuran
+            $angsuran = Angsuran::with('pinjaman')
+                ->orderBy('tanggal_angsuran', 'desc')
+                ->get();
+        }
         return view('angsuran.index', compact('angsuran'));
     }
 

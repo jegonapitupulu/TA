@@ -53,6 +53,7 @@ class AnggotaController extends Controller
             $data['badge'] = $request->badge;
             $data['no_anggota'] = $request->no_anggota;
             $data['no_rekening'] = $request->no_rekening;
+             $data['password'] = Hash::make($request->password);
             $data['bank'] = $request->bank;
         } elseif ($request->role === 'admin') {
             $data['password'] = Hash::make($request->password);
