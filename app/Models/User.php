@@ -54,4 +54,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relasi ke tabel pinjamen (pinjaman)
+     */
+    public function pinjamen()
+    {
+        return $this->hasMany(\App\Models\Pinjaman::class, 'user_id');
+    }
+
 }

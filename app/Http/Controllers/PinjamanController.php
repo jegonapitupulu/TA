@@ -48,8 +48,13 @@ class PinjamanController extends Controller
      */
     public function create()
     {
-        // Retrieve only users with the role of 'anggota'
-        $users = User::where('role', 'anggota')->get();
+        // Ambil user anggota yang tidak punya pinjaman status belum lunas
+        $users = User::where('role', 'anggota')
+            ->whereDoesntHave('pinjamen', function($q) {
+                $q->where('status_pinjaman', '!=', 'lunas');
+            })->orderBy('name')
+            ->get();
+
         return view('pinjaman.create', compact('users'));
     }
 
