@@ -63,7 +63,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($simpanan as $s)
+            @forelse($simpanan as $s)
             <tr>
                 <td>{{ $s->user->name }}</td>
                 <td>{{ $s->jenisSimpanan->nama_jenis_simpanan }}</td>
@@ -81,7 +81,11 @@
                     @endif
                 </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="6" class="text-center">Data tidak tersedia</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

@@ -3,9 +3,16 @@
 <div class="container">
     <h1>Pinjaman</h1>
 
+    <!-- Display Success Message -->
+    @if(session('success'))
+    <div class="alert alert-success mt-3">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <!-- Display Error Message -->
     @if(session('error'))
-    <div class="alert alert-danger">
+    <div class="alert alert-danger mt-3">
         {{ session('error') }}
     </div>
     @endif

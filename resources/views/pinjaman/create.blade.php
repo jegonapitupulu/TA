@@ -3,6 +3,13 @@
 @section('content')
 <div class="container">
     <h1>Tambah Pinjaman</h1>
+
+    @if(session('success'))
+        <div class="alert alert-success mt-3">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <form action="{{ route('pinjaman.store') }}" method="POST">
         @csrf
         <div class="mb-3">

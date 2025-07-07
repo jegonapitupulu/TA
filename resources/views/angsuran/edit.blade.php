@@ -44,10 +44,5 @@
         <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="{{ route('angsuran.index') }}" class="btn btn-secondary">Batal</a>
     </form>
-
-    {{-- Tambahkan sebelum tabel --}}
-    @if(Auth::user()->role === 'admin')
-        <a href="{{ route('angsuran.create') }}" class="btn btn-success mb-3">Tambah Angsuran</a>
-    @endif
 </div>
 @endsection

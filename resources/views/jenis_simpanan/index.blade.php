@@ -4,6 +4,11 @@
     <div class="container">
         <h1>Jenis Simpanan</h1>
         <a href="{{ route('jenis_simpanan.create') }}" class="btn btn-primary">Tambah Jenis Simpanan</a>
+        @if(session('success'))
+            <div class="alert alert-success mt-3">
+                {{ session('success') }}
+            </div>
+        @endif
         <table class="table table-striped">
             <thead>
                 <tr>

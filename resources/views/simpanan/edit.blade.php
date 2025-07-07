@@ -21,9 +21,9 @@
         </div>
         <div class="mb-3">
             <label for="jenis_simpanan_id" class="form-label">Jenis Simpanan</label>
-            <select class="form-control" id="jenis_simpanan_id" name="jenis_simpanan_id" required>
+            <select class="form-control" id="jenis_simpan_id" name="jenis_simpan_id" required>
                 @foreach($jenisSimpanan as $jenis)
-                    <option value="{{ $jenis->id }}" {{ $simpanan->jenis_simpanan_id == $jenis->id ? 'selected' : '' }}>
+                    <option value="{{ $jenis->id }}" {{ $simpanan->jenis_simpan_id == $jenis->id ? 'selected' : '' }}>
                         {{ $jenis->nama_jenis_simpanan }}
                     </option>
                 @endforeach

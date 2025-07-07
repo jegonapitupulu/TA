@@ -2,6 +2,14 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    @if(session('success'))
+        <div class="alert alert-success mb-3 text-center">
+            {{ session('success') }}
+            <br>
+            <a href="{{ route('login') }}" class="btn btn-primary mt-2">Klik di sini untuk Login</a>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

@@ -100,7 +100,7 @@ class SimpananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Simpanan $simpanan)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'user_id' => 'required|exists:users,id',
@@ -108,17 +108,16 @@ class SimpananController extends Controller
             'tanggal_simpan' => 'required|date',
         ]);
 
-        try {
-            $simpanan->update($request->all());
-            $simpanan->admin_id = auth()->user()->id; // Update admin_id from logged-in user
+            $simpanan = Simpanan::findOrFail($id);
+            $simpanan->user_id = $request->user_id;
+            $simpanan->jenis_simpan_id = $request->jenis_simpan_id;
+            $simpanan->tanggal_simpan = $request->tanggal_simpan;
+            // tambahkan field lain jika ada
             $simpanan->save();
 
             return redirect()->route('simpanan.index')
                              ->with('success', 'Simpanan updated successfully.');
-        } catch (\Exception $e) {
-            return redirect()->route('simpanan.index')
-                             ->with('error', 'Failed to update Simpanan.');
-        }
+                             
     }
 
     /**
