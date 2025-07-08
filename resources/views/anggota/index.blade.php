@@ -35,6 +35,14 @@
     @if(Auth::user()->role === 'admin')
         <a href="{{ route('anggota.create') }}" class="btn btn-success mb-3">Tambah Anggota</a>
     @endif
+
+    {{-- Display success message --}}
+    @if(session('success'))
+        <div class="alert alert-success mt-3">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <table class="table">
         <thead>
             <tr>
