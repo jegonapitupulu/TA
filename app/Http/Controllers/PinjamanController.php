@@ -80,13 +80,14 @@ class PinjamanController extends Controller
         try {
             $pinjaman = new Pinjaman($request->all());
             $pinjaman->admin_id = auth()->user()->id; // Set admin_id from logged-in user
+            $pinjaman->status_pinjaman = 'belum';
             $pinjaman->save();
 
             return redirect()->route('pinjaman.index')
                              ->with('success', 'Pinjaman created successfully.');
         } catch (\Exception $e) {
             return redirect()->route('pinjaman.index')
-                             ->with('error', 'Failed to create Pinjaman.');
+                             ->with('error', 'Failed to create Pinjaman: ' . $e->getMessage());
         }
     }
 

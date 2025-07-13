@@ -100,8 +100,8 @@ class AngsuranController extends Controller
     public function update(Request $request, Angsuran $angsuran)
     {
         $request->validate([
-            'pinjaman_id' => 'required|exists:pinjamans,id',
-            'jumlah_angsuran' => 'required|numeric|min:1',
+            'pinjaman_id' => 'required|exists:pinjamen,id',
+            'nominal_angsuran' => 'required|numeric|min:1',
             'tanggal_angsuran' => 'required|date',
         ]);
 

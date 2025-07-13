@@ -58,7 +58,7 @@
                 <th>Jenis Simpanan</th>
                 <th>Nominal</th>
                 <th>Tanggal Simpan</th>
-                <th>Di Inpu Oleh</th>
+                <th>Di Input Oleh</th>
                 <th>Tindakan</th>
             </tr>
         </thead>

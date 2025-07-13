@@ -62,5 +62,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Pinjaman::class, 'user_id');
     }
-
+    public function simpanan() {
+        return $this->hasMany(\App\Models\Simpanan::class, 'user_id');
+    }
 }
