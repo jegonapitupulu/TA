@@ -34,7 +34,7 @@ class AnggotaController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'nullable|string|min:8',
-            'role' => 'required|in:anggota,admin',
+            'role' => 'required|in:anggota,admin,pimpinan',
             'alamat' => 'required|string|max:255',
             'hp' => 'required|string|max:15',
             'tmt' => 'required|date',
@@ -46,7 +46,7 @@ class AnggotaController extends Controller
         ]);
 
         $data = $request->only([
-            'name', 'email', 'role', 'alamat', 'hp', 'tmt', 'status'
+            'name', 'email', 'password','role', 'alamat', 'hp', 'tmt', 'status','badge', 'no_anggota', 'no_rekening', 'bank'
         ]);
 
         if ($request->role === 'anggota') {
